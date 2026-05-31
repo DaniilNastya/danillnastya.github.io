@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Настасьюшка | Моя бесконечная любовь</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #0a0a0f;
+            font-family: 'Playfair Display', 'Segoe UI', 'Georgia', 'Times New Roman', serif;
+            color: #f5e6f0;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+
+        /* тёмный градиент с розовым свечением */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 30%, rgba(255, 80, 120, 0.08), transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* секции */
+        section {
+            padding: 5rem 0;
+            border-bottom: 1px solid rgba(255, 100, 150, 0.2);
+        }
+
+        section:last-child {
+            border-bottom: none;
+        }
+
+        /* типографика */
+        h1 {
+            font-size: 4.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #ffe0f0 0%, #ffb6d1 50%, #ff99c2 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 30px rgba(255, 105, 180, 0.3);
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+            letter-spacing: -0.01em;
+            color: #ffc0e0;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #ff99cc, #ff3366);
+            border-radius: 3px;
+        }
+
+        h3 {
+            font-size: 1.6rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            color: #ffc8e0;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 6rem 0;
+        }
+
+        .hero-content {
+            max-width: 900px;
+        }
+
+        .hero h1 {
+            font-size: 5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.4rem;
+            color: #e0b0d0;
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-bottom: 2rem;
+        }
+
+        .hero-quote {
+            font-size: 1.2rem;
+            font-style: italic;
+            color: #ffb8d0;
+            border-left: 3px solid #ff6699;
+            padding-left: 1.5rem;
+            margin-top: 2rem;
+            text-align: left;
+            display: inline-block;
+        }
+
+        /* сетка для качеств */
+        .qualities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .quality-card {
+            background: rgba(20, 15, 25, 0.7);
+            backdrop-filter: blur(4px);
+            padding: 2rem;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 100, 150, 0.3);
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .quality-card:hover {
+            transform: translateY(-8px);
+            border-color: #ff77aa;
+            box-shadow: 0 20px 40px rgba(255, 80, 120, 0.2);
+            background: rgba(30, 20, 35, 0.8);
+        }
+
+        .quality-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .quality-card p {
+            font-size: 1rem;
+            color: #e8d0e5;
+            line-height: 1.6;
+        }
+
+        /* галерея воспоминаний (описательная) */
+        .memory-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .memory-item {
+            background: rgba(15, 12, 20, 0.6);
+            border-radius: 28px;
+            overflow: hidden;
+            padding: 1.8rem;
+            border: 1px solid rgba(255, 120, 160, 0.25);
+            transition: all 0.3s;
+        }
+
+        .memory-item:hover {
+            border-color: #ff88bb;
+            background: rgba(25, 18, 30, 0.8);
+        }
+
+        .memory-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .memory-item p {
+            font-size: 1.05rem;
+            color: #f0e0f0;
+            font-style: italic;
+        }
+
+        /* стихи / поэзия */
+        .poetry {
+            background: linear-gradient(135deg, rgba(30, 15, 35, 0.5), rgba(20, 10, 25, 0.7));
+            border-radius: 48px;
+            padding: 3rem;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .poetry p {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            font-style: normal;
+            font-weight: 300;
+            letter-spacing: 0.3px;
+            color: #ffdfef;
+        }
+
+        .poetry-author {
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            color: #ff99cc;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* секция о красоте */
+        .beauty-text {
+            background: rgba(255, 100, 150, 0.05);
+            border-radius: 32px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .beauty-text p {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
+        /* футер */
+        footer {
+            padding: 4rem 0 3rem;
+            text-align: center;
+            border-top: 1px solid rgba(255, 100, 150, 0.2);
+            margin-top: 2rem;
+        }
+
+        .footer-heart {
+            font-size: 2rem;
+            color: #ff6699;
+            margin-bottom: 1rem;
+        }
+
+        .footer-text {
+            font-size: 0.9rem;
+            color: #b08bb0;
+            letter-spacing: 1px;
+        }
+
+        /* анимация появления */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-up {
+            animation: fadeUp 0.8s ease forwards;
+        }
+
+        /* адаптив */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1.5rem;
+            }
+            h1 {
+                font-size: 2.8rem;
+            }
+            .hero h1 {
+                font-size: 3rem;
+            }
+            h2 {
+                font-size: 2rem;
+            }
+            .poetry p {
+                font-size: 1.1rem;
+            }
+            section {
+                padding: 3rem 0;
+            }
+        }
+
+        /* декоративный элемент */
+        .rose-decoration {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-size: 2rem;
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Hero секция -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="fade-up">Настасьюшка</h1>
+            <div class="hero-subtitle fade-up" style="animation-delay: 0.1s;">сияние, которое озаряет мой мир</div>
+            <div class="hero-quote fade-up" style="animation-delay: 0.2s;">
+                «Я ЛЮБЛЛЮЮЮЮЮЮ ТЕБЯ КОТЬ ПОШЕЛ НАФИК ДИПСИК МХУХЕХЕХЕ,<br>
+                в каждом взгляде — бесконечность нежности»
+            </div>
+        </div>
+    </section>
+
+    <!-- О её красоте -->
+    <section>
+        <h2>Её красота</h2>
+        <div class="beauty-text">
+            <p>Настасьюшка — это воплощение изящества и света. Её глаза — два бездонных озера, в которых отражаются звёзды. Когда она улыбается, мир замирает, а время замедляет свой бег, чтобы насладиться этим мгновением.</p>
+            <p>Её волосы струятся как шёлк, каждый локон — словно мазок великого художника. В её походке — грация, в каждом движении — совершенство. Но самое прекрасное — это её душа, которая сияет изнутри и делает её ещё более неотразимой.</p>
+            <p>Она подобна розе, распустившейся на заре — нежной, утончённой и бесконечно прекрасной. В её облике сочетаются сила и мягкость, страсть и спокойствие. Быть рядом с ней — значит созерцать живое произведение искусства.</p>
+        </div>
+    </section>
+
+    <!-- Качества, которые я люблю -->
+    <section>
+        <h2>Что я люблю в ней</h2>
+        <div class="qualities-grid">
+            <div class="quality-card">
+                <div class="quality-icon">✨</div>
+                <h3>Сияние души</h3>
+                <p>Её внутренний свет согревает всё вокруг. Она умеет находить прекрасное в каждом мгновении и делится этим теплом бескорыстно.</p>
+            </div>
+            <div class="quality-card">
+                <div class="quality-icon">🎨</div>
+                <h3>Творческая натура</h3>
+                <p>Будущий дизайнер, она видит мир в гармонии форм и оттенков. Её взгляд находит красоту там, где другие проходят мимо.</p>
+            </div>
+            <div class="quality-card">
+                <div class="quality-icon">💭</div>
+                <h3>Глубина мысли</h3>
+                <p>С ней можно говорить о вечном часами. Её размышления вдохновляют, а слова остаются в сердце надолго.</p>
+            </div>
+            <div class="quality-card">
+                <div class="quality-icon">🌹</div>
+                <h3>Нежность</h3>
+                <p>Её прикосновения и взгляды полны такой ласки, что мир становится мягче, а душа наполняется покоем.</p>
+            </div>
+            <div class="quality-card">
+                <div class="quality-icon">🌟</div>
+                <h3>Уникальность</h3>
+                <p>Нет никого похожего на неё. Она единственная, неповторимая, и это делает её драгоценнее любых сокровищ.</p>
+            </div>
+            <div class="quality-card">
+                <div class="quality-icon">🤍</div>
+                <h3>Чистота сердца</h3>
+                <p>В её сердце нет места фальши. Она искренна в каждом слове, и эта правдивость покоряет без остатка.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Поэтическая секция -->
+    <section>
+        <h2>О ней — стихами</h2>
+        <div class="poetry">
+            <p>Зачем гулять, коль можно просто постоять?<br>
+            Но губы к губам тянутся — нельзя же так друзьям.<br>
+            Зачем слова, коль можно просто помолчать?<br>
+            Но руки к щекам тянутся, не в силах отказать.</p>
+            <p>Зачем на звёзды смотреть, коль можно скрыть глаза?<br>
+            Но глаз не оторвать от  взгляда твоего раз.<br>
+            Зачем в любви признаться, коль можно умолчать?<br>
+           Чтоб с прежним сердцем пустым и тем же отвечать?</p>
+            <p>А зачем мне любовь, раз в ней тебя не стало?<br>
+            Чем терзать пустую душу, и вовсе не улегло<br>
+            <div class="poetry-author">Моей любимой посвящается</div>
+        </div>
+    </section>
+
+    <!-- Воспоминания и моменты -->
+    <section>
+        <h2>Мгновения, которые навсегда со мной</h2>
+        <div class="memory-gallery">
+            <div class="memory-item">
+                <div class="memory-icon">🌅</div>
+                <p>Твой смех, когда ты рисуешь что-то новое и вдохновляешься — это музыка, которую я готов слушать вечно.</p>
+            </div>
+            <div class="memory-item">
+                <div class="memory-icon">💫</div>
+                <p>Как ты смотришь на закат, и в твоих глазах отражается всё великолепие уходящего солнца — я запоминаю каждый такой миг.</p>
+            </div>
+            <div class="memory-item">
+                <div class="memory-icon">📖</div>
+                <p>Наши разговоры в университете, когда мы делимся мечтами. Ты рассказываешь о своих проектах, а я слушаю, затаив дыхание.</p>
+            </div>
+            <div class="memory-item">
+                <div class="memory-icon">🕊️</div>
+                <p>Твоя нежность, которую ты даришь даже не словами, а просто присутствием. Рядом с тобой я становлюсь лучше.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Моя любовь (чистое признание) -->
+    <section>
+        <h2>Моя любовь к тебе</h2>
+        <div class="beauty-text" style="background: linear-gradient(135deg, rgba(255,80,120,0.08), rgba(30,15,40,0.5));">
+            <p>Настасьюшка, я люблю тебя. Не потому что ты красивая — хотя ты прекраснее всего, что я видел. Я люблю тебя за то, как ты видишь мир, за твою душу, за твои мечты. Каждый день рядом с тобой — это подарок, который я принимаю с благоговением.</p>
+            <p>Я люблю твой голос, когда ты говоришь о том, что тебя волнует. Я люблю твоё молчание, когда ты погружена в творчество. Я люблю всё, что составляет тебя — каждую чёрточку, каждую мысль, каждую эмоцию.</p>
+            <p>Ты — моя муза, моё вдохновение, моя тихая гавань и мой самый смелый полёт. Быть с тобой — значит знать, что такое настоящее счастье. Ты сделала мою жизнь полной красок, и я буду благодарен тебе за это всегда.</p>
+            <p style="margin-top: 1.5rem; font-size: 1.3rem; font-weight: 400;">Я люблю тебя, Настасьюшка. Бесконечно.</p>
+        </div>
+    </section>
+
+    <!-- Финальное посвящение -->
+    <footer>
+        <div class="footer-heart">🌹❤️🌹</div>
+        <div class="footer-text">
+            Твоему свету нет равных<br>
+            Твоя красота — в каждой детали, в каждом вздохе<br>
+            Ты — моя вечность
+        </div>
+        <div class="footer-text" style="margin-top: 1.5rem; font-size: 0.8rem;">
+            навсегда твой
+        </div>
+    </footer>
+</div>
+
+<div class="rose-decoration">✧ ˚₊‧⁺˖♡</div>
+
+<script>
+    // плавное появление элементов при скролле
+    const fadeElements = document.querySelectorAll('.quality-card, .memory-item, .beauty-text, .poetry');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    
+    fadeElements.forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
+        observer.observe(el);
+    });
+    
+    // дополнительная нежность: заголовки тоже появляются
+    const headers = document.querySelectorAll('h2');
+    headers.forEach(h => {
+        h.style.opacity = '0';
+        h.style.transform = 'translateY(20px)';
+        h.style.transition = 'opacity 0.6s ease 0.2s, transform 0.6s ease 0.2s';
+        observer.observe(h);
+    });
+    
+    // устанавливаем прозрачность для уже видимых при загрузке (hero уже с анимацией)
+    window.addEventListener('load', () => {
+        document.querySelectorAll('.hero .fade-up').forEach(el => {
+            el.style.opacity = '1';
+            el.style.transform = 'translateY(0)';
+        });
+    });
+</script>
+</body>
+</html>
